@@ -1,6 +1,9 @@
 ﻿using Unity;
 using UnityEngine;
 
+/// <summary>
+/// Base projectile data
+/// </summary>
 public abstract class AbstractProjectileData : ScriptableObject
 {
     [SerializeField]

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Base projectile
+/// </summary>
 public abstract class AbstractProjectile : MonoBehaviour
 {
     private bool isActive;
@@ -21,25 +24,20 @@ public abstract class AbstractProjectile : MonoBehaviour
         }
     }
 
-    protected void FixedUpdate()
-    {
-        if (IsActive)
-        {
-            Move();
-        }
-    }
-
     /// <summary>
     /// Init projectile
     /// </summary>
     /// <param name="position">Position</param>
     /// <param name="direction">Direction</param>
     /// <param name="data">Data</param>
-    public abstract void Init(Vector3 position, Quaternion direction, AbstractProjectileData data);
+    public virtual void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
+    {
+        transform.position = position;
+        transform.rotation = direction;
+    }
 
     /// <summary>
-    /// Move projectile while it active
-    /// Called in <see cref="FixedUpdate"/>
+    /// Move projectile while it active    
     /// </summary>
     public abstract void Move();
 }

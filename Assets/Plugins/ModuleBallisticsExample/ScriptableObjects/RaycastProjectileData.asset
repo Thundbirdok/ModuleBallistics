@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7baf95a3c0805414bbb623b922bdd66b, type: 3}
-  m_Name: SimpleProjectileData
+  m_Script: {fileID: 11500000, guid: ec765cb85be1efd41b24215963c8e409, type: 3}
+  m_Name: RaycastProjectileData
   m_EditorClassIdentifier: 
-  id: SimpleProjectile
-  prefab: {fileID: 4529701872163233787, guid: f624d0dc12d59904fb5b753f468f2bbf, type: 3}
+  id: RaycastProjectile
+  prefab: {fileID: 4529701872163233787, guid: 381ab7ac2f3a7e24fb1ca53d15176e23, type: 3}
   speed: 2.5

@@ -105,9 +105,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4529701872163233784}
-  - component: {fileID: -8231699545119439243}
+  - component: {fileID: -5788802491813730955}
+  - component: {fileID: -6194812235334016704}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: RaycastProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +129,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-8231699545119439243
+--- !u!114 &-5788802491813730955
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,6 +138,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 4529701872163233787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f9e0a1c6c19769428cfd90b4eb37488, type: 3}
+  m_Script: {fileID: 11500000, guid: 148de89b9af90f14bac1933a96fceab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -6194812235334016704}
+        m_TargetAssemblyTypeName: SimpleOnHitBehavior, Assembly-CSharp-firstpass
+        m_MethodName: OnHit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-6194812235334016704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4529701872163233787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a930403f487f13b4f886db7088333cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: -5788802491813730955}

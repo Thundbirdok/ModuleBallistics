@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class SimpleGun : MonoBehaviour, IGun
+/// <summary>
+/// Gun with raycast projectiles
+/// </summary>
+public class RaycastGun : MonoBehaviour, IGun
 {
     [SerializeField]
     private Caster caster;
 
     [SerializeField]
-    private SimpleProjectileData projectileData;
+    private RaycastProjectileData projectileData;
 
     /// <summary>
     /// Fire projectile
