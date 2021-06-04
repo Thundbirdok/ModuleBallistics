@@ -75,6 +75,7 @@ namespace ModuleBallistics
 
             GameObject child = new GameObject(name);
             child.transform.parent = target;
+
             return child;
         }
     }
