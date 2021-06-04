@@ -7,8 +7,8 @@ namespace ModuleBallistics
     /// </summary>
     public class Caster : MonoBehaviour
     {
-        private const string DYNAMIC_PATH = "/Environment";
-        private const string PROJECTILE_POOL_PATH = "/Environment/Dynamic";
+        private const string DYNAMIC_PATH = "/" + ENVIRONMENT_NAME;
+        private const string PROJECTILE_POOL_PATH = "/" + ENVIRONMENT_NAME + "/" + DYNAMIC_NAME;
 
         private const string ENVIRONMENT_NAME = "Environment";
         private const string DYNAMIC_NAME = "Dynamic";
