@@ -1,82 +1,82 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Cast projectile
-/// </summary>
-public class Caster : MonoBehaviour
-{    
-    private const string ENVIRONMENT_NAME = "/Environment";
-    private const string DYNAMIC_NAME = "/Environment/Dynamic";
-    private const string PROJECTILE_POOL_NAME = "/Environment/Dynamic/ProjectilePool";
-    
-    [Tooltip("Better setup in editor, not in runtime")]
-    [SerializeField] 
-    private ProjectilePool projectilePool;
-
-    private void OnEnable()
-    {
-        CheckProjectilePool();
-    }
-
+namespace ModuleBallistics
+{
     /// <summary>
     /// Cast projectile
     /// </summary>
-    /// <param name="position">Position</param>
-    /// <param name="direction">Direction</param>
-    /// <param name="data">Data</param>
-    public void Cast(Vector3 position, Quaternion direction, AbstractProjectileData data)
+    public class Caster : MonoBehaviour
     {
-        AbstractProjectile projectile = projectilePool.GetProjectile(data);
+        private const string ENVIRONMENT_NAME = "Environment";
+        private const string DYNAMIC_NAME = "Dynamic";
+        private const string PROJECTILE_POOL_NAME = "ProjectilePool";
 
-        if (projectile == null)
+        [Tooltip("Better setup in editor, not in runtime")]
+        [SerializeField] private ProjectilePool projectilePool;
+
+        private void OnEnable()
         {
-            Debug.LogError("projectile == null");
-
-            return;
+            CheckProjectilePool();
         }
 
-        projectile.Init(position, direction, data);
-    }
-
-    /// <summary>
-    /// Check if pool seted and if not setup it
-    /// </summary>
-    public void CheckProjectilePool()
-    {
-        if (projectilePool != null)
+        /// <summary>
+        /// Cast projectile
+        /// </summary>
+        /// <param name="position">Position</param>
+        /// <param name="direction">Direction</param>
+        /// <param name="data">Data</param>
+        public void Cast(Vector3 position, Quaternion direction, AbstractProjectileData data)
         {
-            return;
+            AbstractProjectile projectile = projectilePool.GetProjectile(data);
+
+            if (projectile == null)
+            {
+                Debug.LogError("projectile == null");
+
+                return;
+            }
+
+            projectile.Init(position, direction, data);
         }
 
-        GameObject environment = GameObject.Find(ENVIRONMENT_NAME);
-        GameObject dynamic;
-
-        if (environment == null)
+        /// <summary>
+        /// Check if pool seted and if not setup it
+        /// </summary>
+        /// <returns>Is already linked?</returns>
+        public bool CheckProjectilePool()
         {
-            environment = Instantiate(new GameObject());
-            dynamic = Instantiate(new GameObject(), environment.transform);
-            projectilePool = Instantiate(new GameObject(), dynamic.transform).AddComponent<ProjectilePool>();
+            if (projectilePool != null)
+            {
+                return true;
+            }
 
-            return;
+            GameObject environment = FindOrInstantiate(ENVIRONMENT_NAME);
+
+            GameObject dynamic = FindOrInstantiate(DYNAMIC_NAME, environment.transform);
+
+            projectilePool = FindOrInstantiate(PROJECTILE_POOL_NAME, dynamic.transform).AddComponent<ProjectilePool>();
+
+            return false;
         }
 
-        dynamic = GameObject.Find(DYNAMIC_NAME);
-
-        if (dynamic == null)
+        private GameObject FindOrInstantiate(string name, Transform target = null)
         {
-            dynamic = Instantiate(new GameObject(), environment.transform);
-            projectilePool = Instantiate(new GameObject(), dynamic.transform).AddComponent<ProjectilePool>();
+            GameObject hierarchyObject = GameObject.Find(name);
 
-            return;
-        }
+            if (hierarchyObject != null)
+            {
+                return hierarchyObject;
+            }
 
-        projectilePool = GameObject.Find(PROJECTILE_POOL_NAME).AddComponent<ProjectilePool>();
+            if (target == null)
+            {
+                return new GameObject(name);
+            }
 
-        if (projectilePool == null)
-        {
-            projectilePool = Instantiate(new GameObject(), dynamic.transform).AddComponent<ProjectilePool>();
+            GameObject child = new GameObject(name);
+            child.transform.parent = target;
+
+            return child;
         }
     }
 }

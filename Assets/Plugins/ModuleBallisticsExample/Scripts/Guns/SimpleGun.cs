@@ -1,18 +1,21 @@
 using UnityEngine;
 
-/// <summary>
-/// Simple gun
-/// </summary>
-public class SimpleGun : MonoBehaviour, IGun
+namespace ModuleBallistics
 {
-    [SerializeField]
-    private Caster caster;
-
-    [SerializeField]
-    private AbstractProjectileData projectileData;
-    
-    public void Fire()
+    /// <summary>
+    /// Simple gun
+    /// </summary>
+    public class SimpleGun : MonoBehaviour, IGun
     {
-        caster.Cast(transform.position, transform.rotation, projectileData);
+        [SerializeField]
+        private Caster caster;
+
+        [SerializeField]
+        private AbstractProjectileData projectileData;
+
+        public void Fire()
+        {
+            caster.Cast(transform.position, transform.rotation, projectileData);
+        }
     }
 }

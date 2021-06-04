@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Data of simple projectile
-/// </summary>
-[CreateAssetMenu(fileName = "SimpleProjectileData", menuName = "Projectiles/SimpleProjectile")]
-public class SimpleProjectileData : AbstractProjectileData
+namespace ModuleBallistics
 {
-    [SerializeField]
-    private float speed = default;
-
     /// <summary>
-    /// Speed
+    /// Data of simple projectile
     /// </summary>
-    public float Speed { get => speed; }
+    [CreateAssetMenu(fileName = "SimpleProjectileData", menuName = "Projectiles/SimpleProjectile")]
+    public class SimpleProjectileData : AbstractProjectileData
+    {
+        [SerializeField]
+        private float speed = default;
+
+        /// <summary>
+        /// Speed
+        /// </summary>
+        public float Speed { get => speed; }
+    }
 }

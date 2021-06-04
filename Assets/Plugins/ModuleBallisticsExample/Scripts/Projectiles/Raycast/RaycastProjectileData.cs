@@ -1,16 +1,19 @@
 using UnityEngine;
 
-/// <summary>
-/// Data of projectile with raycast hit check
-/// </summary>
-[CreateAssetMenu(fileName = "RaycastProjectileData", menuName = "Projectiles/RaycastProjectile")]
-public class RaycastProjectileData : AbstractProjectileData
+namespace ModuleBallistics
 {
-    [SerializeField]
-    protected float speed = default;
-
     /// <summary>
-    /// Speed
+    /// Data of projectile with raycast hit check
     /// </summary>
-    public float Speed { get => speed; }
+    [CreateAssetMenu(fileName = "RaycastProjectileData", menuName = "Projectiles/RaycastProjectile")]
+    public class RaycastProjectileData : AbstractProjectileData
+    {
+        [SerializeField]
+        protected float speed = default;
+
+        /// <summary>
+        /// Speed
+        /// </summary>
+        public float Speed { get => speed; }
+    }
 }

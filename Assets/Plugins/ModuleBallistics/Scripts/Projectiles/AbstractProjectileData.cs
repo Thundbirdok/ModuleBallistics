@@ -1,24 +1,26 @@
-﻿using Unity;
-using UnityEngine;
+﻿using UnityEngine;
 
-/// <summary>
-/// Base projectile data
-/// </summary>
-public abstract class AbstractProjectileData : ScriptableObject
+namespace ModuleBallistics
 {
-    [SerializeField]
-    private string id;
-
     /// <summary>
-    /// Projectile ID
+    /// Base projectile data
     /// </summary>
-    public string Id { get => id; }
+    public abstract class AbstractProjectileData : ScriptableObject
+    {
+        [SerializeField]
+        private string id;
 
-    [SerializeField]
-    private GameObject prefab;
-    
-    /// <summary>
-    /// Projectile Prefab
-    /// </summary>
-    public GameObject Prefab { get => prefab; }    
+        /// <summary>
+        /// Projectile ID
+        /// </summary>
+        public string Id { get => id; }
+
+        [SerializeField]
+        private GameObject prefab;
+
+        /// <summary>
+        /// Projectile Prefab
+        /// </summary>
+        public GameObject Prefab { get => prefab; }
+    }
 }

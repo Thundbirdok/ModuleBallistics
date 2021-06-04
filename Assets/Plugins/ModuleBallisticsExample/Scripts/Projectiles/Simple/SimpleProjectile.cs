@@ -1,33 +1,36 @@
 using UnityEngine;
 
-/// <summary>
-/// Move object in direction
-/// </summary>
-public class SimpleProjectile : AbstractProjectile
+namespace ModuleBallistics
 {
-    private float speed;
-    
-    public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
+    /// <summary>
+    /// Move object in direction
+    /// </summary>
+    public class SimpleProjectile : AbstractProjectile
     {
-        SimpleProjectileData downCastedData = data as SimpleProjectileData;
+        private float speed;
 
-        base.Init(position, direction, data);
-
-        speed = downCastedData.Speed;
-
-        IsActive = true;
-    }
-
-    private void FixedUpdate()
-    {
-        if (IsActive)
+        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
         {
-            Move();
-        }
-    }
+            SimpleProjectileData downCastedData = data as SimpleProjectileData;
 
-    protected override void Move()
-    {
-        transform.position = transform.position + transform.forward * speed;
+            base.Init(position, direction, data);
+
+            speed = downCastedData.Speed;
+
+            IsActive = true;
+        }
+
+        private void FixedUpdate()
+        {
+            if (IsActive)
+            {
+                Move();
+            }
+        }
+
+        protected override void Move()
+        {
+            transform.position = transform.position + transform.forward * speed;
+        }
     }
 }
