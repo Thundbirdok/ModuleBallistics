@@ -456,6 +456,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -496,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 334049473}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: _Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -728,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d1ba6dbd4b26499097b4dc9b70b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePool: {fileID: 1381578875}
+  projectilePool: {fileID: 0}
 --- !u!1 &673112516
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +782,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1007,6 +1009,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1171,7 +1174,7 @@ GameObject:
   - component: {fileID: 1381578873}
   - component: {fileID: 1381578875}
   m_Layer: 0
-  m_Name: ProjectilePool
+  m_Name: _ProjectilePool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1270,6 +1273,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1310,7 +1314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1977367441}
   m_Layer: 0
-  m_Name: Dynamic
+  m_Name: _Dynamic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

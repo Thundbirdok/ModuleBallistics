@@ -6,13 +6,13 @@ using UnityEngine;
 /// Cast projectile
 /// </summary>
 public class Caster : MonoBehaviour
-{    
+{
     private const string ENVIRONMENT_NAME = "/Environment";
     private const string DYNAMIC_NAME = "/Environment/Dynamic";
     private const string PROJECTILE_POOL_NAME = "/Environment/Dynamic/ProjectilePool";
-    
+
     [Tooltip("Better setup in editor, not in runtime")]
-    [SerializeField] 
+    [SerializeField]
     private ProjectilePool projectilePool;
 
     private void OnEnable()
@@ -50,33 +50,29 @@ public class Caster : MonoBehaviour
             return;
         }
 
-        GameObject environment = GameObject.Find(ENVIRONMENT_NAME);
-        GameObject dynamic;
+        GameObject environment = FindOrInstantiate(ENVIRONMENT_NAME);
 
-        if (environment == null)
+        GameObject dynamic = FindOrInstantiate(DYNAMIC_NAME, environment.transform);
+
+        projectilePool = FindOrInstantiate(PROJECTILE_POOL_NAME, dynamic.transform).AddComponent<ProjectilePool>();
+    }
+
+    private GameObject FindOrInstantiate(string name, Transform target = null)
+    {
+        GameObject hierarchyObject = GameObject.Find(name);
+
+        if (hierarchyObject != null)
         {
-            environment = Instantiate(new GameObject());
-            dynamic = Instantiate(new GameObject(), environment.transform);
-            projectilePool = Instantiate(new GameObject(), dynamic.transform).AddComponent<ProjectilePool>();
-
-            return;
+            return hierarchyObject;
         }
 
-        dynamic = GameObject.Find(DYNAMIC_NAME);
-
-        if (dynamic == null)
+        if (target == null)
         {
-            dynamic = Instantiate(new GameObject(), environment.transform);
-            projectilePool = Instantiate(new GameObject(), dynamic.transform).AddComponent<ProjectilePool>();
-
-            return;
+            return new GameObject(name);
         }
-
-        projectilePool = GameObject.Find(PROJECTILE_POOL_NAME).AddComponent<ProjectilePool>();
-
-        if (projectilePool == null)
-        {
-            projectilePool = Instantiate(new GameObject(), dynamic.transform).AddComponent<ProjectilePool>();
-        }
+        
+        GameObject child = new GameObject(name);
+        child.transform.parent = target;
+        return child;
     }
 }
