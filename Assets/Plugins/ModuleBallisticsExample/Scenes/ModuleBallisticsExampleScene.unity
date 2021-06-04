@@ -497,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 334049473}
   m_Layer: 0
-  m_Name: _Environment
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 410d1ba6dbd4b26499097b4dc9b70b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePool: {fileID: 0}
+  projectilePool: {fileID: 1381578875}
 --- !u!1 &673112516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,7 +1174,7 @@ GameObject:
   - component: {fileID: 1381578873}
   - component: {fileID: 1381578875}
   m_Layer: 0
-  m_Name: _ProjectilePool
+  m_Name: ProjectilePool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1314,7 +1314,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1977367441}
   m_Layer: 0
-  m_Name: _Dynamic
+  m_Name: Dynamic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
