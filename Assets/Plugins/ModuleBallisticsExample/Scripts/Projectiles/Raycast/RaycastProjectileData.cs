@@ -7,7 +7,7 @@ using UnityEngine;
 public class RaycastProjectileData : AbstractProjectileData
 {
     [SerializeField]
-    private float speed = default;
+    protected float speed = default;
 
     /// <summary>
     /// Speed

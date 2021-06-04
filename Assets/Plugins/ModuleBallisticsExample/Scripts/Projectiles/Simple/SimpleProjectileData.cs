@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Data of simple projectile
+/// </summary>
 [CreateAssetMenu(fileName = "SimpleProjectileData", menuName = "Projectiles/SimpleProjectile")]
 public class SimpleProjectileData : AbstractProjectileData
 {

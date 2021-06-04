@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class RaycastProjectile : AbstractProjectile
 {
     [SerializeField]
-    private UnityEvent OnHit;
+    private UnityEvent<Collider> OnHit;
 
     private float speed;
 
@@ -30,7 +30,7 @@ public class RaycastProjectile : AbstractProjectile
         }
     }
 
-    public override void Move()
+    protected override void Move()
     {
         Vector3 previousPosition = transform.position;
 
@@ -38,8 +38,8 @@ public class RaycastProjectile : AbstractProjectile
 
         if (RaycastHelper.CheckHitBetweenPoints(previousPosition, transform.position, out RaycastHit hit))
         {
-            //hit happened
-            OnHit?.Invoke();
+            //NOTE: hit happened
+            OnHit?.Invoke(hit.collider);
         }
     }
 }

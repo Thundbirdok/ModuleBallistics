@@ -26,7 +26,7 @@ public class SimpleProjectile : AbstractProjectile
         }
     }
 
-    public override void Move()
+    protected override void Move()
     {
         transform.position = transform.position + transform.forward * speed;
     }

@@ -105,10 +105,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4529701872163233784}
-  - component: {fileID: -5788802491813730955}
-  - component: {fileID: -6194812235334016704}
+  - component: {fileID: 7077280755624855165}
+  - component: {fileID: -3769152406879121630}
+  - component: {fileID: 382577248666835176}
+  - component: {fileID: 7136128067558789980}
   m_Layer: 0
-  m_Name: RaycastProjectile
+  m_Name: RigidbodyProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +131,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5788802491813730955
+--- !u!136 &7077280755624855165
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4529701872163233787}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-3769152406879121630
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4529701872163233787}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
+--- !u!114 &382577248666835176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,16 +170,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 4529701872163233787}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 148de89b9af90f14bac1933a96fceab5, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b5af369467f3984bb5e68202e43255d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: -3769152406879121630}
   OnHit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -6194812235334016704}
+      - m_Target: {fileID: 7136128067558789980}
         m_TargetAssemblyTypeName: SimpleOnHitBehavior, Assembly-CSharp-firstpass
         m_MethodName: OnHit
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -156,7 +189,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-6194812235334016704
+--- !u!114 &7136128067558789980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,4 +201,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a930403f487f13b4f886db7088333cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: -5788802491813730955}
+  projectile: {fileID: 382577248666835176}

@@ -1,16 +1,16 @@
 using UnityEngine;
 
+/// <summary>
+/// Simple gun
+/// </summary>
 public class SimpleGun : MonoBehaviour, IGun
 {
     [SerializeField]
     private Caster caster;
 
     [SerializeField]
-    private SimpleProjectileData projectileData;
-
-    /// <summary>
-    /// Fire projectile
-    /// </summary>
+    private AbstractProjectileData projectileData;
+    
     public void Fire()
     {
         caster.Cast(transform.position, transform.rotation, projectileData);

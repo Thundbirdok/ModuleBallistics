@@ -39,5 +39,5 @@ public abstract class AbstractProjectile : MonoBehaviour
     /// <summary>
     /// Move projectile while it active    
     /// </summary>
-    public abstract void Move();
+    protected abstract void Move();
 }
