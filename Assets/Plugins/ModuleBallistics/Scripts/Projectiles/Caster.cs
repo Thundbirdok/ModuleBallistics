@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,13 +5,12 @@ using UnityEngine;
 /// </summary>
 public class Caster : MonoBehaviour
 {
-    private const string ENVIRONMENT_NAME = "/Environment";
-    private const string DYNAMIC_NAME = "/Environment/Dynamic";
-    private const string PROJECTILE_POOL_NAME = "/Environment/Dynamic/ProjectilePool";
+    private const string ENVIRONMENT_NAME = "Environment";
+    private const string DYNAMIC_NAME = "Dynamic";
+    private const string PROJECTILE_POOL_NAME = "ProjectilePool";
 
     [Tooltip("Better setup in editor, not in runtime")]
-    [SerializeField]
-    private ProjectilePool projectilePool;
+    [SerializeField] private ProjectilePool projectilePool;
 
     private void OnEnable()
     {
@@ -43,11 +40,12 @@ public class Caster : MonoBehaviour
     /// <summary>
     /// Check if pool seted and if not setup it
     /// </summary>
-    public void CheckProjectilePool()
+    /// <returns>Is already linked?</returns>
+    public bool CheckProjectilePool()
     {
         if (projectilePool != null)
         {
-            return;
+            return true;
         }
 
         GameObject environment = FindOrInstantiate(ENVIRONMENT_NAME);
@@ -55,6 +53,8 @@ public class Caster : MonoBehaviour
         GameObject dynamic = FindOrInstantiate(DYNAMIC_NAME, environment.transform);
 
         projectilePool = FindOrInstantiate(PROJECTILE_POOL_NAME, dynamic.transform).AddComponent<ProjectilePool>();
+
+        return false;
     }
 
     private GameObject FindOrInstantiate(string name, Transform target = null)
