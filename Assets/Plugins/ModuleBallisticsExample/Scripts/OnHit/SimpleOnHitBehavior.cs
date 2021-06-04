@@ -1,45 +1,48 @@
 using UnityEngine;
 
-/// <summary>
-/// Write log in console and deactivate object
-/// </summary>
-public class SimpleOnHitBehavior : MonoBehaviour
+namespace ModuleBallistics
 {
-    [SerializeField]
-    private AbstractProjectile projectile;
-
     /// <summary>
     /// Write log in console and deactivate object
     /// </summary>
-    public void OnHit()
+    public class SimpleOnHitBehavior : MonoBehaviour
     {
-        Debug.Log(gameObject.name + " Hit!");
+        [SerializeField]
+        private AbstractProjectile projectile;
 
-        projectile.IsActive = false;
-    }
+        /// <summary>
+        /// Write log in console and deactivate object
+        /// </summary>
+        public void OnHit()
+        {
+            Debug.Log(gameObject.name + " Hit!");
 
-    /// <summary>
-    /// Write log in console and deactivate object
-    /// </summary>
-    public void OnHit(Collision collision)
-    {
-        Debug.Log(gameObject.name + " Hit " + collision.gameObject.name);
+            projectile.IsActive = false;
+        }
 
-        projectile.IsActive = false;
-    }
+        /// <summary>
+        /// Write log in console and deactivate object
+        /// </summary>
+        public void OnHit(Collision collision)
+        {
+            Debug.Log(gameObject.name + " Hit " + collision.gameObject.name);
 
-    /// <summary>
-    /// Write log in console and deactivate object
-    /// </summary>
-    public void OnHit(Collider collider)
-    {
-        Debug.Log(gameObject.name + " Hit " + collider.gameObject.name);
+            projectile.IsActive = false;
+        }
 
-        projectile.IsActive = false;
-    }
+        /// <summary>
+        /// Write log in console and deactivate object
+        /// </summary>
+        public void OnHit(Collider collider)
+        {
+            Debug.Log(gameObject.name + " Hit " + collider.gameObject.name);
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        OnHit(collision);
+            projectile.IsActive = false;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            OnHit(collision);
+        }
     }
 }

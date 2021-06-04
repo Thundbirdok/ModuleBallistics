@@ -1,48 +1,51 @@
 using UnityEngine;
 
-/// <summary>
-/// Simple rigidbody based ballistic projectile
-/// </summary>
-[RequireComponent(typeof(Rigidbody))]
-public class RigidbodyProjectile : AbstractProjectile
+namespace ModuleBallistics
 {
-    [SerializeField]
-    private Rigidbody body;
-
-    private float startForce;
-
-    private Vector3 previousPosition;
-
-    public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
+    /// <summary>
+    /// Simple rigidbody based ballistic projectile
+    /// </summary>
+    [RequireComponent(typeof(Rigidbody))]
+    public class RigidbodyProjectile : AbstractProjectile
     {
-        RigidbodyProjectileData downCastedData = data as RigidbodyProjectileData;
+        [SerializeField]
+        private Rigidbody body;
 
-        base.Init(position, direction, data);
+        private float startForce;
 
-        startForce = downCastedData.StartForce;
+        private Vector3 previousPosition;
 
-        previousPosition = transform.position;
-
-        IsActive = true;
-
-        body.velocity = Vector3.zero;
-        body.angularVelocity = Vector3.zero;
-        body.AddForce(transform.forward * startForce, ForceMode.Impulse);        
-    }
-
-    private void FixedUpdate()
-    {
-        if (IsActive)
+        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
         {
-            Move();
+            RigidbodyProjectileData downCastedData = data as RigidbodyProjectileData;
+
+            base.Init(position, direction, data);
+
+            startForce = downCastedData.StartForce;
+
+            previousPosition = transform.position;
+
+            IsActive = true;
+
+            body.velocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+            body.AddForce(transform.forward * startForce, ForceMode.Impulse);
         }
-    }
 
-    protected override void Move()
-    {
-        Vector3 direction = transform.position - previousPosition;
-        transform.rotation = direction != Vector3.zero ? Quaternion.LookRotation(direction) : transform.rotation;
+        private void FixedUpdate()
+        {
+            if (IsActive)
+            {
+                Move();
+            }
+        }
 
-        previousPosition = transform.position;
+        protected override void Move()
+        {
+            Vector3 direction = transform.position - previousPosition;
+            transform.rotation = direction != Vector3.zero ? Quaternion.LookRotation(direction) : transform.rotation;
+
+            previousPosition = transform.position;
+        }
     }
 }

@@ -1,10 +1,13 @@
-/// <summary>
-/// Gun interface
-/// </summary>
-public interface IGun
+namespace ModuleBallistics
 {
     /// <summary>
-    /// Fire projectile
+    /// Gun interface
     /// </summary>
-    public void Fire();
+    public interface IGun
+    {
+        /// <summary>
+        /// Fire projectile
+        /// </summary>
+        public void Fire();
+    }
 }

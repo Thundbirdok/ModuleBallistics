@@ -1,43 +1,46 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// Base projectile
-/// </summary>
-public abstract class AbstractProjectile : MonoBehaviour
+namespace ModuleBallistics
 {
-    private bool isActive;
-
     /// <summary>
-    /// Is projectile moving
+    /// Base projectile
     /// </summary>
-    public bool IsActive 
+    public abstract class AbstractProjectile : MonoBehaviour
     {
-        get
+        private bool isActive;
+
+        /// <summary>
+        /// Is projectile moving
+        /// </summary>
+        public bool IsActive
         {
-            return isActive;
+            get
+            {
+                return isActive;
+            }
+
+            set
+            {
+                isActive = value;
+                gameObject.SetActive(value);
+            }
         }
 
-        set
+        /// <summary>
+        /// Init projectile
+        /// </summary>
+        /// <param name="position">Position</param>
+        /// <param name="direction">Direction</param>
+        /// <param name="data">Data</param>
+        public virtual void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
         {
-            isActive = value;
-            gameObject.SetActive(value);            
+            transform.position = position;
+            transform.rotation = direction;
         }
-    }
 
-    /// <summary>
-    /// Init projectile
-    /// </summary>
-    /// <param name="position">Position</param>
-    /// <param name="direction">Direction</param>
-    /// <param name="data">Data</param>
-    public virtual void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
-    {
-        transform.position = position;
-        transform.rotation = direction;
+        /// <summary>
+        /// Move projectile while it active    
+        /// </summary>
+        protected abstract void Move();
     }
-
-    /// <summary>
-    /// Move projectile while it active    
-    /// </summary>
-    protected abstract void Move();
 }

@@ -1,7 +1,10 @@
 using UnityEditor;
 
-public class Version
+namespace ModuleBallistics
 {
-    [MenuItem("ModuleBallistics/GetVersion/1.0.0")]
-    public static void GetVersion() { }
+    public class Version
+    {
+        [MenuItem("ModuleBallistics/GetVersion/1.0.0")]
+        public static void GetVersion() { }
+    }
 }
