@@ -7,6 +7,9 @@ namespace ModuleBallistics
     /// </summary>
     public class Caster : MonoBehaviour
     {
+        private const string DYNAMIC_PATH = "/" + ENVIRONMENT_NAME;
+        private const string PROJECTILE_POOL_PATH = "/" + ENVIRONMENT_NAME + "/" + DYNAMIC_NAME;
+
         private const string ENVIRONMENT_NAME = "Environment";
         private const string DYNAMIC_NAME = "Dynamic";
         private const string PROJECTILE_POOL_NAME = "ProjectilePool";
@@ -52,16 +55,17 @@ namespace ModuleBallistics
 
             GameObject environment = FindOrInstantiate(ENVIRONMENT_NAME);
 
-            GameObject dynamic = FindOrInstantiate(DYNAMIC_NAME, environment.transform);
+            GameObject dynamic = FindOrInstantiate(DYNAMIC_NAME, DYNAMIC_PATH, environment.transform);
 
-            projectilePool = FindOrInstantiate(PROJECTILE_POOL_NAME, dynamic.transform).AddComponent<ProjectilePool>();
+            projectilePool = FindOrInstantiate(PROJECTILE_POOL_NAME, PROJECTILE_POOL_PATH, dynamic.transform)
+                .AddComponent<ProjectilePool>();
 
             return false;
         }
 
-        private GameObject FindOrInstantiate(string name, Transform target = null)
+        private GameObject FindOrInstantiate(string name, string path = null, Transform target = null)
         {
-            GameObject hierarchyObject = GameObject.Find(name);
+            GameObject hierarchyObject = GameObject.Find($"{path ?? ""}/{name}");
 
             if (hierarchyObject != null)
             {
