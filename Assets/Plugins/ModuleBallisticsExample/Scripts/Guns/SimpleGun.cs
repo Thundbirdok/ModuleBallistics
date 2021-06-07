@@ -5,7 +5,7 @@ namespace ModuleBallistics
     /// <summary>
     /// Simple gun
     /// </summary>
-    public class SimpleGun : MonoBehaviour, IGun
+    public class SimpleGun : AbstractGun
     {
         [SerializeField]
         private Caster caster;
@@ -13,9 +13,11 @@ namespace ModuleBallistics
         [SerializeField]
         private AbstractProjectileData projectileData;
 
-        public void Fire()
-        {
+        public override void StartFire()
+        {           
             caster.Cast(transform.position, transform.rotation, projectileData);
         }
+
+        public override void StopFire() { }
     }
 }
