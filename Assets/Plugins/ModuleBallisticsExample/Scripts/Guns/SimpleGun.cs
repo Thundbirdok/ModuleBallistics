@@ -14,8 +14,8 @@ namespace ModuleBallistics
         private AbstractProjectileData projectileData = default;
 
         public override void StartFire()
-        {           
+        {
             caster.Cast(transform.position, transform.rotation, projectileData);
-        }        
+        }
     }
 }

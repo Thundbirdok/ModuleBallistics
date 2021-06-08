@@ -20,13 +20,13 @@ namespace ModuleBallistics
         private float lastShootTime = 0;
 
         public override void StartFire()
-        {            
+        {
             isFireing = true;
         }
 
         public override void StopFire()
         {
-            isFireing = false;            
+            isFireing = false;
         }
 
         private void FixedUpdate()
