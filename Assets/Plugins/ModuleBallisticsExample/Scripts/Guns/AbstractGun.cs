@@ -10,11 +10,11 @@ namespace ModuleBallistics
         /// <summary>
         /// Start fire projectile
         /// </summary>
-        public abstract void StartFire();
+        public virtual void StartFire() { }
 
         /// <summary>
         /// Stop fire projectile
         /// </summary>
-        public abstract void StopFire();
+        public virtual void StopFire() { }
     }
 }

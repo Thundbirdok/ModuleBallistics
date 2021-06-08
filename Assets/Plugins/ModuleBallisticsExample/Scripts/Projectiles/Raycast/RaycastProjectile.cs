@@ -9,9 +9,9 @@ namespace ModuleBallistics
     public class RaycastProjectile : AbstractProjectile
     {
         [SerializeField]
-        private UnityEvent<Collider> OnHit;
+        private UnityEvent<Collider> OnHit = default;
 
-        private float speed;
+        private float speed = 0;
 
         public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
         {

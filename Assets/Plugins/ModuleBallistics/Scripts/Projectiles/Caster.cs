@@ -15,7 +15,7 @@ namespace ModuleBallistics
         private const string PROJECTILE_POOL_NAME = "ProjectilePool";
 
         [Tooltip("Better setup in editor, not in runtime")]
-        [SerializeField] private ProjectilePool projectilePool;
+        [SerializeField] private ProjectilePool projectilePool = null;
 
         private void OnEnable()
         {

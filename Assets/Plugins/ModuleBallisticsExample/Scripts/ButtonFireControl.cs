@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,7 +8,7 @@ namespace ModuleBallistics
     /// </summary>
     public class ButtonFireControl : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        [SerializeField] private AbstractGun[] Guns;
+        [SerializeField] private AbstractGun[] Guns = default;
 
         /// <summary>
         /// Start fire

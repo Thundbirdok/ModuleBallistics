@@ -8,16 +8,14 @@ namespace ModuleBallistics
     public class SimpleGun : AbstractGun
     {
         [SerializeField]
-        private Caster caster;
+        private Caster caster = default;
 
         [SerializeField]
-        private AbstractProjectileData projectileData;
+        private AbstractProjectileData projectileData = default;
 
         public override void StartFire()
         {           
             caster.Cast(transform.position, transform.rotation, projectileData);
-        }
-
-        public override void StopFire() { }
+        }        
     }
 }

@@ -7,7 +7,7 @@ namespace ModuleBallistics
     /// </summary>
     public class SimpleProjectile : AbstractProjectile
     {
-        private float speed;
+        private float speed = 0;
 
         public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
         {

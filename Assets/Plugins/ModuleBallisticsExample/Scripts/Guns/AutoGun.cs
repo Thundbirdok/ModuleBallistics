@@ -8,20 +8,19 @@ namespace ModuleBallistics
     public class AutoGun : AbstractGun
     {
         [SerializeField]
-        private Caster caster;
+        private Caster caster = default;
 
         [SerializeField]
-        private AbstractProjectileData projectileData;
+        private AbstractProjectileData projectileData = default;
 
         [SerializeField]
         private float cooldown = 0.5f;
 
-        private bool isFireing;
-        private float lastShootTime;
+        private bool isFireing = false;
+        private float lastShootTime = 0;
 
         public override void StartFire()
-        {
-            caster.Cast(transform.position, transform.rotation, projectileData);
+        {            
             isFireing = true;
         }
 
