@@ -8,7 +8,7 @@ namespace ModuleBallistics
     public abstract class AbstractProjectileData : ScriptableObject
     {
         [SerializeField]
-        private string id;
+        private string id = "ID";
 
         /// <summary>
         /// Projectile ID
@@ -16,7 +16,7 @@ namespace ModuleBallistics
         public string Id { get => id; }
 
         [SerializeField]
-        private GameObject prefab;
+        private GameObject prefab = default;
 
         /// <summary>
         /// Projectile Prefab

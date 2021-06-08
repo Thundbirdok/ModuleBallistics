@@ -8,7 +8,7 @@ namespace ModuleBallistics
     public class SimpleOnHitBehavior : MonoBehaviour
     {
         [SerializeField]
-        private AbstractProjectile projectile;
+        private AbstractProjectile projectile = default;
 
         /// <summary>
         /// Write log in console and deactivate object

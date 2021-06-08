@@ -9,7 +9,7 @@ namespace ModuleBallistics
         uint minimalSize = 10;
 
         [SerializeField]
-        private Dictionary<string, (Transform Pool, List<AbstractProjectile> List)> dictionary;
+        private Dictionary<string, (Transform Pool, List<AbstractProjectile> List)> dictionary = default;
 
         /// <summary>
         /// Return projectile with sent data
