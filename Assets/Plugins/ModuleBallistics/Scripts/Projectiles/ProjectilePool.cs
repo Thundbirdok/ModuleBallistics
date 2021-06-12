@@ -43,9 +43,10 @@ namespace ModuleBallistics
         {
             if (dictionary.ContainsKey(data.Id) == false)
             {
-                Transform pool = Instantiate(new GameObject(data.Id + " Pool"), transform).transform;
+                GameObject pool = new GameObject(data.Id + " Pool");
+                pool.transform.parent = transform;
 
-                dictionary.Add(data.Id, (pool, new List<AbstractProjectile>()));
+                dictionary.Add(data.Id, (pool.transform, new List<AbstractProjectile>()));
 
                 return false;
             }
