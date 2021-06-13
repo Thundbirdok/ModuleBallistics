@@ -213,7 +213,7 @@ namespace ModuleBallistics
         {
             if (dictionary == null)
             {
-                dictionary = new Dictionary<string, (Transform Pool, List<AbstractProjectile> List)>();
+                return;
             }
 
             foreach (var pool in dictionary)

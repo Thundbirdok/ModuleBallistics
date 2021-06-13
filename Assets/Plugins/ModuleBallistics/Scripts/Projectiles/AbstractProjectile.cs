@@ -42,10 +42,5 @@ namespace ModuleBallistics
             transform.position = position;
             transform.rotation = direction;
         }
-
-        /// <summary>
-        /// Move projectile while it active    
-        /// </summary>
-        protected virtual void Move() { }
     }
 }

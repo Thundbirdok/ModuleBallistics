@@ -28,7 +28,7 @@ namespace ModuleBallistics
             }
         }
 
-        protected override void Move()
+        protected void Move()
         {
             transform.position = transform.position + transform.forward * speed;
         }

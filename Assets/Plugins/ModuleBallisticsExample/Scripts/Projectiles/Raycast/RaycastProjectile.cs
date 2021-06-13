@@ -32,7 +32,7 @@ namespace ModuleBallistics
             }
         }
 
-        protected override void Move()
+        protected void Move()
         {
             Vector3 previousPosition = transform.position;
 
