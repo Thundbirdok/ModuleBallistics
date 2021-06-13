@@ -15,10 +15,15 @@ namespace ModuleBallistics
         [SerializeField]
         private Dictionary<string, (Transform Pool, List<AbstractProjectile> List)> dictionary = default;
 
-        private List<Coroutine> coroutines = default;
+        private List<Coroutine> coroutines = new List<Coroutine>();
 
         private void OnDisable()
         {
+            if (coroutines is null)
+            {
+                return;
+            }
+
             foreach (Coroutine coroutine in coroutines)
             {
                 if (coroutine != null)
@@ -26,6 +31,8 @@ namespace ModuleBallistics
                     StopCoroutine(coroutine);
                 }
             }
+
+            coroutines.Clear();
         }
 
         /// <summary>

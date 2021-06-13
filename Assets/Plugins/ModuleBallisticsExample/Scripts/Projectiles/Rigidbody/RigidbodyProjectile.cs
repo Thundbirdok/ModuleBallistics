@@ -40,7 +40,7 @@ namespace ModuleBallistics
             }
         }
 
-        protected override void Move()
+        protected void Move()
         {
             Vector3 direction = transform.position - previousPosition;
             transform.rotation = direction != Vector3.zero ? Quaternion.LookRotation(direction) : transform.rotation;
