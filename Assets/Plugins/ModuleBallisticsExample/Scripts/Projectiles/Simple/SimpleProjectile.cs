@@ -13,7 +13,7 @@ namespace ModuleBallistics
         {
             SimpleProjectileData downCastedData = data as SimpleProjectileData;
 
-            base.Init(position, direction, data);
+            InitTransform(position, direction);
 
             speed = downCastedData.Speed;
 
@@ -28,7 +28,7 @@ namespace ModuleBallistics
             }
         }
 
-        protected override void Move()
+        protected void Move()
         {
             transform.position = transform.position + transform.forward * speed;
         }

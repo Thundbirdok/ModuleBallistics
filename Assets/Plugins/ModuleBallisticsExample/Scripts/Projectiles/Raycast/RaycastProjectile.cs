@@ -17,7 +17,7 @@ namespace ModuleBallistics
         {
             RaycastProjectileData downCastedData = data as RaycastProjectileData;
 
-            base.Init(position, direction, data);
+            InitTransform(position, direction);
 
             speed = downCastedData.Speed;
 
@@ -32,7 +32,7 @@ namespace ModuleBallistics
             }
         }
 
-        protected override void Move()
+        protected void Move()
         {
             Vector3 previousPosition = transform.position;
 

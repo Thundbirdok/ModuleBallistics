@@ -19,7 +19,7 @@ namespace ModuleBallistics
         {
             RigidbodyProjectileData downCastedData = data as RigidbodyProjectileData;
 
-            base.Init(position, direction, data);
+            InitTransform(position, direction);
 
             startForce = downCastedData.StartForce;
 
