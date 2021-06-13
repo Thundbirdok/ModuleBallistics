@@ -13,7 +13,7 @@ namespace ModuleBallistics
         {
             SimpleProjectileData downCastedData = data as SimpleProjectileData;
 
-            base.Init(position, direction, data);
+            InitTransform(position, direction);
 
             speed = downCastedData.Speed;
 

@@ -7,20 +7,28 @@ namespace ModuleBallistics
     /// </summary>
     public abstract class AbstractProjectileData : ScriptableObject
     {
-        [SerializeField]
-        private string id = "ID";
+        [Tooltip("Projectile id")]
+        [SerializeField] private string id = "ID";
 
         /// <summary>
         /// Projectile ID
         /// </summary>
-        public string Id { get => id; }
+        public string Id => id;
 
-        [SerializeField]
-        private GameObject prefab = default;
+        [Tooltip("Projectile prefab")]
+        [SerializeField] private GameObject prefab = default;
 
         /// <summary>
-        /// Projectile Prefab
+        /// Projectile prefab
         /// </summary>
-        public GameObject Prefab { get => prefab; }
+        public GameObject Prefab => prefab;
+
+        [Tooltip("Prefered projectile pool size")]
+        [SerializeField] private uint preferedPoolSize = 10;
+
+        /// <summary>
+        /// Prefered projectile pool size
+        /// </summary>
+        public uint PreferedPoolSize => preferedPoolSize;
     }
 }

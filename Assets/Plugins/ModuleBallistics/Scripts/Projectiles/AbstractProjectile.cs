@@ -7,7 +7,7 @@ namespace ModuleBallistics
     /// </summary>
     public abstract class AbstractProjectile : MonoBehaviour
     {
-        private bool isActive;
+        private bool isActive = false;
 
         /// <summary>
         /// Is projectile moving
@@ -34,6 +34,11 @@ namespace ModuleBallistics
         /// <param name="data">Data</param>
         public virtual void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
         {
+            InitTransform(position, direction);
+        }
+
+        protected virtual void InitTransform(Vector3 position, Quaternion direction)
+        {
             transform.position = position;
             transform.rotation = direction;
         }
@@ -41,6 +46,6 @@ namespace ModuleBallistics
         /// <summary>
         /// Move projectile while it active    
         /// </summary>
-        protected abstract void Move();
+        protected virtual void Move() { }
     }
 }

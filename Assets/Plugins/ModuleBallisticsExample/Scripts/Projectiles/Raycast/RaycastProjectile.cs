@@ -17,7 +17,7 @@ namespace ModuleBallistics
         {
             RaycastProjectileData downCastedData = data as RaycastProjectileData;
 
-            base.Init(position, direction, data);
+            InitTransform(position, direction);
 
             speed = downCastedData.Speed;
 
