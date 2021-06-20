@@ -28,7 +28,7 @@ namespace ModuleBallistics
         /// <param name="position">Position</param>
         /// <param name="direction">Direction</param>
         /// <param name="data">Data</param>
-        public void Cast(Vector3 position, Quaternion direction, AbstractProjectileData data)
+        public void Cast(Vector3 position, Quaternion direction, AbstractProjectileData data, AbstractTeamMark team = null)
         {
             AbstractProjectile projectile = projectilePool.GetProjectile(data);
 
@@ -39,7 +39,7 @@ namespace ModuleBallistics
                 return;
             }
 
-            projectile.Init(position, direction, data);
+            projectile.Init(position, direction, data, team);
         }
 
         /// <summary>

@@ -15,9 +15,11 @@ namespace ModuleBallistics
 
         private Vector3 previousPosition = default;
 
-        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
+        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data, AbstractTeamMark team)
         {
             RigidbodyProjectileData downCastedData = data as RigidbodyProjectileData;
+
+            ownerTeam = team;
 
             InitTransform(position, direction);
 

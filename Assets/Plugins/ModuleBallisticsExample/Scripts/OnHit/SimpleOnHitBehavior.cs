@@ -10,39 +10,75 @@ namespace ModuleBallistics
         [SerializeField]
         private AbstractProjectile projectile = default;
 
-        /// <summary>
-        /// Write log in console and deactivate object
-        /// </summary>
-        public void OnHit()
+        private void OnTriggerEnter(Collider collider)
         {
-            Debug.Log(gameObject.name + " Hit!");
+            if (collider.gameObject.TryGetComponent(out AbstractTeamMark colliderTeam))
+            {
+                if (projectile.OwnerTeam == null || colliderTeam.GetType() != projectile.OwnerTeam.GetType())
+                {
+                    OnEnemyHit(collider);
 
-            projectile.IsActive = false;
+                    return;
+                }
+
+                OnAllyHit(collider);
+
+                return;
+            }
+
+            OnEnvironmentHit(collider);
         }
 
         /// <summary>
-        /// Write log in console and deactivate object
-        /// </summary>
-        public void OnHit(Collision collision)
-        {
-            Debug.Log(gameObject.name + " Hit " + collision.gameObject.name);
-
-            projectile.IsActive = false;
-        }
-
-        /// <summary>
-        /// Write log in console and deactivate object
+        /// Specify which object was hit
         /// </summary>
         public void OnHit(Collider collider)
         {
-            Debug.Log(gameObject.name + " Hit " + collider.gameObject.name);
+            if (collider.gameObject.TryGetComponent(out AbstractTeamMark colliderTeam))
+            {
+                if (projectile.OwnerTeam == null || colliderTeam.GetType() != projectile.OwnerTeam.GetType())
+                {
+                    OnEnemyHit(collider);
+
+                    return;
+                }
+
+                OnAllyHit(collider);
+
+                return;
+            }
+
+            OnEnvironmentHit(collider);
+        }
+
+        /// <summary>
+        /// Write log in console and deactivate object
+        /// </summary>
+        private void OnEnvironmentHit(Collider collider)
+        {
+            Debug.Log(gameObject.name + " hit environment " + collider.gameObject.name + " and been destroyed");
 
             projectile.IsActive = false;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        /// <summary>
+        /// Write log in console and deactivate object
+        /// </summary>
+        private void OnEnemyHit(Collider collider)
         {
-            OnHit(collision);
+            Debug.Log(gameObject.name + " hit enemy " + collider.gameObject.name + " and deal damage");
+
+            projectile.IsActive = false;
+        }
+
+        /// <summary>
+        /// Write log in console and deactivate object
+        /// </summary>
+        private void OnAllyHit(Collider collider)
+        {
+            //Note: You can add some parameter for friendly fire behaviour
+
+            Debug.Log(gameObject.name + " hit ally " + collider.gameObject.name + " do nothing and fly further");
         }
     }
 }
