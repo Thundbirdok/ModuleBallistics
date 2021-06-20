@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,12 +11,17 @@ namespace ModuleBallistics
         [SerializeField] private bool isInitPreferedPoolSize = true;
 
         [Tooltip("Projectile datas for pre instantiation")]
-        [SerializeField] private List<AbstractProjectileData> projectileDatas = default;
+        [SerializeField] private List<ProjectilePreInstantiateData> projectileDatas = default;
 
-        [SerializeField]
-        private Dictionary<string, (Transform Pool, List<AbstractProjectile> List)> dictionary = default;
+        [SerializeField, HideInInspector]
+        private IdProjectilePoolDictionary dictionary = default;
 
         private List<Coroutine> coroutines = new List<Coroutine>();
+
+        private void OnEnable()
+        {
+            CheckDictionary();
+        }
 
         private void OnDisable()
         {
@@ -33,6 +39,48 @@ namespace ModuleBallistics
             }
 
             coroutines.Clear();
+        }
+
+        private void CheckDictionary()
+        {
+            if (dictionary is null)
+            {
+                return;
+            }
+
+            foreach (KeyValuePair<string, SpecificProjectilePool> pool in dictionary)
+            {
+                if (pool.Value.Pool == null || pool.Value.Pool is null || pool.Value.Pool.Equals(null))
+                {
+                    dictionary.Clear();
+                    dictionary = null;
+
+#if UNITY_EDITOR
+
+                    Debug.Log("Projectile pool dictionary has missing object");
+
+#endif
+
+                    return;
+                }
+
+                foreach (AbstractProjectile projectile in pool.Value.List)
+                {
+                    if (projectile == null || projectile is null || projectile.Equals(null))
+                    {
+                        dictionary.Clear();
+                        dictionary = null;
+
+#if UNITY_EDITOR
+
+                        Debug.Log("Projectile pool dictionary has missing object");
+
+#endif
+
+                        return;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -56,10 +104,20 @@ namespace ModuleBallistics
 
             foreach (AbstractProjectile projectile in dictionary[data.Id].List)
             {
+                if (projectile == null || projectile is null || projectile.Equals(null))
+                {
+                    continue;
+                }
+
                 if (projectile.IsActive == false)
                 {
                     return projectile;
                 }
+            }
+
+            if (isInitPreferedPoolSize)
+            {
+                coroutines.Add(StartCoroutine(AddProjectilesCoroutine(data, data.PreferedPoolSize - 1)));
             }
 
             return CreateProjectile(data);
@@ -67,9 +125,9 @@ namespace ModuleBallistics
 
         private bool CheckData(AbstractProjectileData data)
         {
-            if (dictionary == null)
+            if (dictionary is null)
             {
-                dictionary = new Dictionary<string, (Transform Pool, List<AbstractProjectile> List)>();
+                dictionary = new IdProjectilePoolDictionary();
             }
 
             if (dictionary.ContainsKey(data.Id) == false)
@@ -77,7 +135,7 @@ namespace ModuleBallistics
                 GameObject pool = new GameObject(data.Id + " Pool");
                 pool.transform.parent = transform;
 
-                dictionary.Add(data.Id, (pool.transform, new List<AbstractProjectile>()));
+                dictionary.Add(data.Id, new SpecificProjectilePool(pool.transform, new List<AbstractProjectile>()));
 
                 return false;
             }
@@ -134,6 +192,26 @@ namespace ModuleBallistics
         }
 
         /// <summary>
+        /// Add projectiles
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        public IEnumerator AddProjectilesCoroutine(AbstractProjectileData data, uint amount = 0)
+        {
+            uint size = amount == 0 ? data.PreferedPoolSize : amount;
+
+            CheckData(data);
+
+            for (int i = 0; i < size; ++i)
+            {
+                CreateProjectile(data);
+
+                yield return null;
+            }
+        }
+
+        /// <summary>
         /// Instantiate pools with projectiles with datas until reached minimal size
         /// </summary>
         public void InitPools()
@@ -143,9 +221,9 @@ namespace ModuleBallistics
                 ClearPools();
             }
 
-            foreach (AbstractProjectileData data in projectileDatas)
+            foreach (ProjectilePreInstantiateData data in projectileDatas)
             {
-                InitPool(data);
+                InitPool(data.Data, data.Data.PreferedPoolSize * data.AmountOfGuns);
             }
         }
 
@@ -159,9 +237,9 @@ namespace ModuleBallistics
                 ClearPools();
             }
 
-            foreach (AbstractProjectileData data in projectileDatas)
+            foreach (ProjectilePreInstantiateData data in projectileDatas)
             {
-                coroutines.Add(StartCoroutine(InitPoolCoroutine(data)));
+                coroutines.Add(StartCoroutine(InitPoolCoroutine(data.Data, data.Data.PreferedPoolSize * data.AmountOfGuns)));
 
                 yield return null;
             }
@@ -242,6 +320,31 @@ namespace ModuleBallistics
             }
 
             dictionary.Clear();
+        }
+
+        [Serializable]
+        private class IdProjectilePoolDictionary : UnitySerializedDictionary<string, SpecificProjectilePool> { }
+
+        [Serializable]
+        private class SpecificProjectilePool
+        {
+            public Transform Pool = default;
+            public List<AbstractProjectile> List = default;
+
+            public SpecificProjectilePool(
+                Transform pool,
+                List<AbstractProjectile> list)
+            {
+                Pool = pool;
+                List = list;
+            }
+        }
+
+        [Serializable]
+        private class ProjectilePreInstantiateData
+        {
+            public AbstractProjectileData Data = default;
+            public uint AmountOfGuns = 1;
         }
     }
 }
