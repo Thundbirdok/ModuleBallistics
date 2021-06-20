@@ -1288,9 +1288,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInitPreferedPoolSize: 1
   projectileDatas:
-  - {fileID: 11400000, guid: ff68cabda1bac9143b0cff3d9f9612fc, type: 2}
-  - {fileID: 11400000, guid: c1ec18ee871de9e488b24ae18b810f7c, type: 2}
-  - {fileID: 11400000, guid: 792eb3d63b0e29d40a5e7fb28db419f1, type: 2}
+  - Data: {fileID: 11400000, guid: ff68cabda1bac9143b0cff3d9f9612fc, type: 2}
+    AmountOfGuns: 1
+  - Data: {fileID: 11400000, guid: 792eb3d63b0e29d40a5e7fb28db419f1, type: 2}
+    AmountOfGuns: 2
+  - Data: {fileID: 11400000, guid: c1ec18ee871de9e488b24ae18b810f7c, type: 2}
+    AmountOfGuns: 1
+  dictionary:
+    keyData:
+    - SimpleProjectile
+    - Rigidbody
+    - RaycastProjectile
+    valueData:
+    - Pool: {fileID: 0}
+      List:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - Pool: {fileID: 0}
+      List:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+    - Pool: {fileID: 0}
+      List:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
 --- !u!1 &1761098107
 GameObject:
   m_ObjectHideFlags: 0
