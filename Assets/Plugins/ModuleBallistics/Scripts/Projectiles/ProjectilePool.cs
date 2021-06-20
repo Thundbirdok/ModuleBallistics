@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,8 +13,8 @@ namespace ModuleBallistics
         [Tooltip("Projectile datas for pre instantiation")]
         [SerializeField] private List<AbstractProjectileData> projectileDatas = default;
 
-        [SerializeField]
-        private Dictionary<string, (Transform Pool, List<AbstractProjectile> List)> dictionary = default;
+        [SerializeField, HideInInspector]
+        private IdProjectilePoolDictionary dictionary = default;
 
         private List<Coroutine> coroutines = new List<Coroutine>();
 
@@ -67,17 +68,19 @@ namespace ModuleBallistics
 
         private bool CheckData(AbstractProjectileData data)
         {
-            if (dictionary == null)
+            if (dictionary is null)
             {
-                dictionary = new Dictionary<string, (Transform Pool, List<AbstractProjectile> List)>();
+                dictionary = new IdProjectilePoolDictionary();
             }
+
+            Debug.Log(dictionary is null);
 
             if (dictionary.ContainsKey(data.Id) == false)
             {
                 GameObject pool = new GameObject(data.Id + " Pool");
                 pool.transform.parent = transform;
 
-                dictionary.Add(data.Id, (pool.transform, new List<AbstractProjectile>()));
+                dictionary.Add(data.Id, new ScecificProjectilePool(pool.transform, new List<AbstractProjectile>()));
 
                 return false;
             }
@@ -242,6 +245,24 @@ namespace ModuleBallistics
             }
 
             dictionary.Clear();
+        }
+
+        [Serializable]
+        private class IdProjectilePoolDictionary : UnitySerializedDictionary<string, ScecificProjectilePool> { }
+
+        [Serializable]
+        public class ScecificProjectilePool
+        {
+            public Transform Pool;
+            public List<AbstractProjectile> List;
+
+            public ScecificProjectilePool(
+                Transform pool,
+                List<AbstractProjectile> list)
+            {
+                Pool = pool;
+                List = list;
+            }
         }
     }
 }
