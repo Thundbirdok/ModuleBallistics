@@ -13,9 +13,11 @@ namespace ModuleBallistics
 
         private float speed = 0;
 
-        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
+        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data, AbstractTeamMark team)
         {
             RaycastProjectileData downCastedData = data as RaycastProjectileData;
+
+            ownerTeam = team;
 
             InitTransform(position, direction);
 

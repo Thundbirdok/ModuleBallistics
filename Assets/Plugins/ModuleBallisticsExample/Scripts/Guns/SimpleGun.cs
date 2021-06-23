@@ -11,11 +11,14 @@ namespace ModuleBallistics
         private Caster caster = default;
 
         [SerializeField]
+        private AbstractTeamMark team = default;
+
+        [SerializeField]
         private AbstractProjectileData projectileData = default;
 
         public override void StartFire()
         {
-            caster.Cast(transform.position, transform.rotation, projectileData);
+            caster.Cast(transform.position, transform.rotation, projectileData, team);
         }
     }
 }

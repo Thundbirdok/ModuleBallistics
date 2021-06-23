@@ -11,6 +11,9 @@ namespace ModuleBallistics
         private Caster caster = default;
 
         [SerializeField]
+        private AbstractTeamMark team = default;
+
+        [SerializeField]
         private AbstractProjectileData projectileData = default;
 
         [SerializeField]
@@ -38,7 +41,7 @@ namespace ModuleBallistics
 
             if (Time.time >= lastShootTime + cooldown)
             {
-                caster.Cast(transform.position, transform.rotation, projectileData);
+                caster.Cast(transform.position, transform.rotation, projectileData, team);
                 lastShootTime = Time.time;
             }
         }

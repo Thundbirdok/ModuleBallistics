@@ -9,9 +9,11 @@ namespace ModuleBallistics
     {
         private float speed = 0;
 
-        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data)
+        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data, AbstractTeamMark team)
         {
             SimpleProjectileData downCastedData = data as SimpleProjectileData;
+
+            ownerTeam = team;
 
             InitTransform(position, direction);
 

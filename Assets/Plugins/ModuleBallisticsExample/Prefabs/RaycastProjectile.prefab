@@ -52,6 +52,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -145,7 +146,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: -6194812235334016704}
-        m_TargetAssemblyTypeName: SimpleOnHitBehavior, Assembly-CSharp-firstpass
+        m_TargetAssemblyTypeName: ModuleBallistics.SimpleOnHitBehavior, Assembly-CSharp-firstpass
         m_MethodName: OnHit
         m_Mode: 0
         m_Arguments:
