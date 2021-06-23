@@ -20,7 +20,7 @@ namespace ModuleBallistics
 
         private void OnEnable()
         {
-            CheckDictionary();
+            dictionary?.CheckDictionary();
         }
 
         private void OnDisable()
@@ -39,48 +39,6 @@ namespace ModuleBallistics
             }
 
             coroutines.Clear();
-        }
-
-        private void CheckDictionary()
-        {
-            if (dictionary is null)
-            {
-                return;
-            }
-
-            foreach (KeyValuePair<string, SpecificProjectilePool> pool in dictionary)
-            {
-                if (pool.Value.Pool == null || pool.Value.Pool is null || pool.Value.Pool.Equals(null))
-                {
-                    dictionary.Clear();
-                    dictionary = null;
-
-#if UNITY_EDITOR
-
-                    Debug.Log("Projectile pool dictionary has missing object");
-
-#endif
-
-                    return;
-                }
-
-                foreach (AbstractProjectile projectile in pool.Value.List)
-                {
-                    if (projectile == null || projectile is null || projectile.Equals(null))
-                    {
-                        dictionary.Clear();
-                        dictionary = null;
-
-#if UNITY_EDITOR
-
-                        Debug.Log("Projectile pool dictionary has missing object");
-
-#endif
-
-                        return;
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -320,24 +278,6 @@ namespace ModuleBallistics
             }
 
             dictionary.Clear();
-        }
-
-        [Serializable]
-        private class IdProjectilePoolDictionary : UnitySerializedDictionary<string, SpecificProjectilePool> { }
-
-        [Serializable]
-        private class SpecificProjectilePool
-        {
-            public Transform Pool = default;
-            public List<AbstractProjectile> List = default;
-
-            public SpecificProjectilePool(
-                Transform pool,
-                List<AbstractProjectile> list)
-            {
-                Pool = pool;
-                List = list;
-            }
         }
 
         [Serializable]
