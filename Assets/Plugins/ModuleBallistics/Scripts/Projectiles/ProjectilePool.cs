@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ModuleBallistics
@@ -20,7 +21,7 @@ namespace ModuleBallistics
 
         private void OnEnable()
         {
-            CheckDictionary();
+            dictionary?.CheckDictionary();
         }
 
         private void OnDisable()
@@ -39,48 +40,6 @@ namespace ModuleBallistics
             }
 
             coroutines.Clear();
-        }
-
-        private void CheckDictionary()
-        {
-            if (dictionary is null)
-            {
-                return;
-            }
-
-            foreach (KeyValuePair<string, SpecificProjectilePool> pool in dictionary)
-            {
-                if (pool.Value.Pool == null || pool.Value.Pool is null || pool.Value.Pool.Equals(null))
-                {
-                    dictionary.Clear();
-                    dictionary = null;
-
-#if UNITY_EDITOR
-
-                    Debug.Log("Projectile pool dictionary has missing object");
-
-#endif
-
-                    return;
-                }
-
-                foreach (AbstractProjectile projectile in pool.Value.List)
-                {
-                    if (projectile == null || projectile is null || projectile.Equals(null))
-                    {
-                        dictionary.Clear();
-                        dictionary = null;
-
-#if UNITY_EDITOR
-
-                        Debug.Log("Projectile pool dictionary has missing object");
-
-#endif
-
-                        return;
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -102,17 +61,10 @@ namespace ModuleBallistics
                 return projectile;
             }
 
-            foreach (AbstractProjectile projectile in dictionary[data.Id].List)
+            AbstractProjectile foundedProjectile = dictionary[data.Id].List.Where(p => p && p.IsActive == false).FirstOrDefault();
+            if (foundedProjectile)
             {
-                if (projectile == null || projectile is null || projectile.Equals(null))
-                {
-                    continue;
-                }
-
-                if (projectile.IsActive == false)
-                {
-                    return projectile;
-                }
+                return foundedProjectile;
             }
 
             if (isInitPreferedPoolSize)
@@ -256,17 +208,7 @@ namespace ModuleBallistics
 
             CheckData(data);
 
-            for (int i = 0; i < dictionary[data.Id].List.Count && dictionary[data.Id].List.Count > size;)
-            {
-                if (dictionary[data.Id].List[i].IsActive == false)
-                {
-                    dictionary[data.Id].List.RemoveAt(i);
-                }
-                else
-                {
-                    ++i;
-                }
-            }
+            RemoveInactiveProjectiles(dictionary[data.Id]);
         }
 
         /// <summary>
@@ -277,17 +219,17 @@ namespace ModuleBallistics
         {
             foreach (var pool in dictionary)
             {
-                for (int i = 0; i < pool.Value.List.Count && pool.Value.List.Count > customMinimalSize;)
-                {
-                    if (pool.Value.List[i].IsActive == false)
-                    {
-                        pool.Value.List.RemoveAt(i);
-                    }
-                    else
-                    {
-                        ++i;
-                    }
-                }
+                RemoveInactiveProjectiles(pool.Value);
+            }
+        }
+
+        private void RemoveInactiveProjectiles(SpecificProjectilePool projectilePool)
+        {
+            List<AbstractProjectile> shrinkProjectiles = projectilePool.List.Where(p => p == false || p.IsActive == false).ToList();
+
+            foreach (var projectile in shrinkProjectiles)
+            {
+                projectilePool.List.Remove(projectile);
             }
         }
 
@@ -303,41 +245,22 @@ namespace ModuleBallistics
 
             foreach (var pool in dictionary)
             {
+                if (pool.Value.Pool == false)
+                {
+                    continue;
+                }
+
                 if (Application.isEditor)
                 {
-                    if (pool.Value.Pool != null)
-                    {
-                        DestroyImmediate(pool.Value.Pool.gameObject);
-                    }
+                    DestroyImmediate(pool.Value.Pool.gameObject);
 
                     continue;
                 }
 
-                if (pool.Value.Pool != null)
-                {
-                    Destroy(pool.Value.Pool.gameObject);
-                }
+                Destroy(pool.Value.Pool.gameObject);
             }
 
             dictionary.Clear();
-        }
-
-        [Serializable]
-        private class IdProjectilePoolDictionary : UnitySerializedDictionary<string, SpecificProjectilePool> { }
-
-        [Serializable]
-        private class SpecificProjectilePool
-        {
-            public Transform Pool = default;
-            public List<AbstractProjectile> List = default;
-
-            public SpecificProjectilePool(
-                Transform pool,
-                List<AbstractProjectile> list)
-            {
-                Pool = pool;
-                List = list;
-            }
         }
 
         [Serializable]
