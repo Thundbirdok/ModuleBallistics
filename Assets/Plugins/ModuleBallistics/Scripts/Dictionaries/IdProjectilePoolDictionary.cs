@@ -13,13 +13,7 @@ namespace ModuleBallistics
             {
                 if (pool.Value.Pool == false)
                 {
-                    Clear();
-
-#if UNITY_EDITOR
-
-                    Debug.Log("Projectile pool dictionary has missing object");
-
-#endif
+                    ClearDictionary("Projectile pool dictionary has missing object");
 
                     return;
                 }
@@ -28,18 +22,23 @@ namespace ModuleBallistics
                 {
                     if (projectile == false)
                     {
-                        Clear();
-
-#if UNITY_EDITOR
-
-                        Debug.Log("Projectile pool dictionary has missing object");
-
-#endif
+                        ClearDictionary("Projectile pool has missing object");
 
                         return;
                     }
                 }
             }
+        }
+
+        private void ClearDictionary(string message = null)
+        {
+            Clear();
+
+#if UNITY_EDITOR
+
+            Debug.Log(message ?? "Dictionary of pools cleared");
+
+#endif
         }
     }
 

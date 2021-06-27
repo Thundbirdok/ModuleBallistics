@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ModuleBallistics
@@ -60,17 +61,10 @@ namespace ModuleBallistics
                 return projectile;
             }
 
-            foreach (AbstractProjectile projectile in dictionary[data.Id].List)
+            AbstractProjectile foundedProjectile = dictionary[data.Id].List.Where(p => p && p.IsActive == false).FirstOrDefault();
+            if (foundedProjectile)
             {
-                if (projectile == false)
-                {
-                    continue;
-                }
-
-                if (projectile.IsActive == false)
-                {
-                    return projectile;
-                }
+                return foundedProjectile;
             }
 
             if (isInitPreferedPoolSize)
@@ -214,17 +208,7 @@ namespace ModuleBallistics
 
             CheckData(data);
 
-            for (int i = 0; i < dictionary[data.Id].List.Count && dictionary[data.Id].List.Count > size;)
-            {
-                if (dictionary[data.Id].List[i].IsActive == false)
-                {
-                    dictionary[data.Id].List.RemoveAt(i);
-                }
-                else
-                {
-                    ++i;
-                }
-            }
+            RemoveInactiveProjectiles(dictionary[data.Id]);
         }
 
         /// <summary>
@@ -235,17 +219,17 @@ namespace ModuleBallistics
         {
             foreach (var pool in dictionary)
             {
-                for (int i = 0; i < pool.Value.List.Count && pool.Value.List.Count > customMinimalSize;)
-                {
-                    if (pool.Value.List[i].IsActive == false)
-                    {
-                        pool.Value.List.RemoveAt(i);
-                    }
-                    else
-                    {
-                        ++i;
-                    }
-                }
+                RemoveInactiveProjectiles(pool.Value);
+            }
+        }
+
+        private void RemoveInactiveProjectiles(SpecificProjectilePool projectilePool)
+        {
+            List<AbstractProjectile> shrinkProjectiles = projectilePool.List.Where(p => p == false || p.IsActive == false).ToList();
+
+            foreach (var projectile in shrinkProjectiles)
+            {
+                projectilePool.List.Remove(projectile);
             }
         }
 
@@ -261,20 +245,19 @@ namespace ModuleBallistics
 
             foreach (var pool in dictionary)
             {
+                if (pool.Value.Pool == false)
+                {
+                    continue;
+                }
+
                 if (Application.isEditor)
                 {
-                    if (pool.Value.Pool)
-                    {
-                        DestroyImmediate(pool.Value.Pool.gameObject);
-                    }
+                    DestroyImmediate(pool.Value.Pool.gameObject);
 
                     continue;
                 }
 
-                if (pool.Value.Pool)
-                {
-                    Destroy(pool.Value.Pool.gameObject);
-                }
+                Destroy(pool.Value.Pool.gameObject);
             }
 
             dictionary.Clear();
