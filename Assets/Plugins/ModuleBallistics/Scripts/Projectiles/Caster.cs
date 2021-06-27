@@ -32,7 +32,7 @@ namespace ModuleBallistics
         {
             AbstractProjectile projectile = projectilePool.GetProjectile(data);
 
-            if (projectile == null)
+            if (projectile == false)
             {
                 Debug.LogError("projectile == null");
 
@@ -48,7 +48,7 @@ namespace ModuleBallistics
         /// <returns>Is already linked?</returns>
         public bool CheckProjectilePool()
         {
-            if (projectilePool != null)
+            if (projectilePool)
             {
                 return true;
             }
@@ -67,12 +67,12 @@ namespace ModuleBallistics
         {
             GameObject hierarchyObject = GameObject.Find($"{path ?? ""}/{name}");
 
-            if (hierarchyObject != null)
+            if (hierarchyObject)
             {
                 return hierarchyObject;
             }
 
-            if (target == null)
+            if (target == false)
             {
                 return new GameObject(name);
             }
