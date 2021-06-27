@@ -11,7 +11,7 @@ namespace ModuleBallistics
         {
             foreach (KeyValuePair<string, SpecificProjectilePool> pool in this)
             {
-                if (pool.Value.Pool == null || pool.Value.Pool is null || pool.Value.Pool.Equals(null))
+                if (pool.Value.Pool == false)
                 {
                     Clear();
 
@@ -26,7 +26,7 @@ namespace ModuleBallistics
 
                 foreach (AbstractProjectile projectile in pool.Value.List)
                 {
-                    if (projectile == null || projectile is null || projectile.Equals(null))
+                    if (projectile == false)
                     {
                         Clear();
 

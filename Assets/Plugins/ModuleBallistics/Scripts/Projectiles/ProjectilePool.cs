@@ -62,7 +62,7 @@ namespace ModuleBallistics
 
             foreach (AbstractProjectile projectile in dictionary[data.Id].List)
             {
-                if (projectile == null || projectile is null || projectile.Equals(null))
+                if (projectile == false)
                 {
                     continue;
                 }
@@ -263,7 +263,7 @@ namespace ModuleBallistics
             {
                 if (Application.isEditor)
                 {
-                    if (pool.Value.Pool != null)
+                    if (pool.Value.Pool)
                     {
                         DestroyImmediate(pool.Value.Pool.gameObject);
                     }
@@ -271,7 +271,7 @@ namespace ModuleBallistics
                     continue;
                 }
 
-                if (pool.Value.Pool != null)
+                if (pool.Value.Pool)
                 {
                     Destroy(pool.Value.Pool.gameObject);
                 }
