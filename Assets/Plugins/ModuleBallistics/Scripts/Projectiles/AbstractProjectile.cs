@@ -26,26 +26,21 @@ namespace ModuleBallistics
             }
         }
 
-        protected AbstractTeamMark ownerTeam;
-        public AbstractTeamMark OwnerTeam => ownerTeam;
-
         /// <summary>
         /// Init projectile
         /// </summary>
         /// <param name="position">Position</param>
         /// <param name="direction">Direction</param>
         /// <param name="data">Data</param>
-        public virtual void Init(Vector3 position, Quaternion direction, AbstractProjectileData data, AbstractTeamMark team)
+        public virtual void Init(ShootData shootData, AbstractProjectileData projectileData)
         {
-            ownerTeam = team;
-
-            InitTransform(position, direction);
+            InitTransform(shootData);
         }
 
-        protected virtual void InitTransform(Vector3 position, Quaternion direction)
+        protected virtual void InitTransform(ShootData shootData)
         {
-            transform.position = position;
-            transform.rotation = direction;
+            transform.position = shootData.position;
+            transform.rotation = shootData.rotation;
         }
     }
 }

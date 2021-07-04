@@ -9,15 +9,13 @@ namespace ModuleBallistics
     {
         private float speed = 0;
 
-        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data, AbstractTeamMark team)
+        public override void Init(ShootData shootData, AbstractProjectileData projectileData)
         {
-            SimpleProjectileData downCastedData = data as SimpleProjectileData;
+            SimpleProjectileData downCastedProjectileData = projectileData as SimpleProjectileData;
 
-            ownerTeam = team;
+            InitTransform(shootData);
 
-            InitTransform(position, direction);
-
-            speed = downCastedData.Speed;
+            speed = downCastedProjectileData.Speed;
 
             IsActive = true;
         }

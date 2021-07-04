@@ -15,15 +15,13 @@ namespace ModuleBallistics
 
         private Vector3 previousPosition = default;
 
-        public override void Init(Vector3 position, Quaternion direction, AbstractProjectileData data, AbstractTeamMark team)
+        public override void Init(ShootData shootData, AbstractProjectileData projectileData)
         {
-            RigidbodyProjectileData downCastedData = data as RigidbodyProjectileData;
+            RigidbodyProjectileData downCastedProjectileData = projectileData as RigidbodyProjectileData;
 
-            ownerTeam = team;
+            InitTransform(shootData);
 
-            InitTransform(position, direction);
-
-            startForce = downCastedData.StartForce;
+            startForce = downCastedProjectileData.StartForce;
 
             previousPosition = transform.position;
 
