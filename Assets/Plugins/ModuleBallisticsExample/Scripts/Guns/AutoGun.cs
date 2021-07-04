@@ -22,6 +22,13 @@ namespace ModuleBallistics
         private bool isFireing = false;
         private float lastShootTime = 0;
 
+        private ShootData shootData = default;
+
+        private void Awake()
+        {
+            shootData = new ShootData();
+        }
+
         public override void StartFire()
         {
             isFireing = true;
@@ -41,7 +48,10 @@ namespace ModuleBallistics
 
             if (Time.time >= lastShootTime + cooldown)
             {
-                caster.Cast(transform.position, transform.rotation, projectileData, team);
+                shootData.position = transform.position;
+                shootData.rotation = transform.rotation;
+
+                caster.Cast(shootData, projectileData);
                 lastShootTime = Time.time;
             }
         }
