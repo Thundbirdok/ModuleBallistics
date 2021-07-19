@@ -8,25 +8,30 @@ namespace ModuleBallistics
     public class AutoGun : AbstractGun
     {
         [SerializeField]
-        private Caster caster = default;
+        protected Caster caster = default;
 
         [SerializeField]
-        private AbstractTeamMark team = default;
+        protected AbstractProjectileData projectileData = default;
 
         [SerializeField]
-        private AbstractProjectileData projectileData = default;
+        protected float cooldown = 0.5f;
 
-        [SerializeField]
-        private float cooldown = 0.5f;
+        protected bool isFireing = false;
+        protected float lastShootTime = 0;
 
-        private bool isFireing = false;
-        private float lastShootTime = 0;
+        protected ShootData shootData = new ShootData();
 
-        private ShootData shootData = default;
-
-        private void Awake()
+        protected void FixedUpdate()
         {
-            shootData = new ShootData();
+            if (isFireing == false)
+            {
+                return;
+            }
+
+            if (Time.time >= lastShootTime + cooldown)
+            {
+                Fire();
+            }
         }
 
         public override void StartFire()
@@ -39,21 +44,13 @@ namespace ModuleBallistics
             isFireing = false;
         }
 
-        private void FixedUpdate()
+        protected virtual void Fire()
         {
-            if (isFireing == false)
-            {
-                return;
-            }
+            shootData.position = transform.position;
+            shootData.rotation = transform.rotation;
 
-            if (Time.time >= lastShootTime + cooldown)
-            {
-                shootData.position = transform.position;
-                shootData.rotation = transform.rotation;
-
-                caster.Cast(shootData, projectileData);
-                lastShootTime = Time.time;
-            }
+            caster.Cast(shootData, projectileData);
+            lastShootTime = Time.time;
         }
     }
 }

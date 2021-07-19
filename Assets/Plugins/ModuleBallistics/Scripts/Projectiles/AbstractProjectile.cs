@@ -16,6 +16,13 @@ namespace ModuleBallistics
         {
             get
             {
+                if (gameObject.activeSelf == false)
+                {
+                    isActive = false;
+
+                    return false;
+                }
+
                 return isActive;
             }
 

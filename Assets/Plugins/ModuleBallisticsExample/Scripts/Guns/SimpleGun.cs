@@ -11,9 +11,6 @@ namespace ModuleBallistics
         private Caster caster = default;
 
         [SerializeField]
-        private AbstractTeamMark team = default;
-
-        [SerializeField]
         private AbstractProjectileData projectileData = default;
 
         private ShootData shootData = default;
