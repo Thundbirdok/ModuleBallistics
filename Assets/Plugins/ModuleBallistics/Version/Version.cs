@@ -9,7 +9,7 @@ namespace ModuleBallistics
     public class Version
     {
         private const string REPOSITORY_LINK = "https://github.com/ip613s07/ModuleBallistics/releases/tag/";
-        private const string VERSION = "1.3.0";
+        private const string VERSION = "1.3.1";
 
         [MenuItem("ModuleBallistics/GetVersion/" + VERSION)]
         public static void GetVersion()
