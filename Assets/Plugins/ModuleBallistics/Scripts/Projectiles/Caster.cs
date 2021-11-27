@@ -15,7 +15,7 @@ namespace ModuleBallistics
         private const string PROJECTILE_POOL_NAME = "ProjectilePool";
 
         [Tooltip("Better setup in editor, not in runtime")]
-        [SerializeField] private ProjectilePool projectilePool = null;
+        [SerializeField] private ProjectilesPool projectilePool = null;
 
         private void OnEnable()
         {
@@ -30,7 +30,7 @@ namespace ModuleBallistics
         /// <param name="data">Data</param>
         public void Cast(ShootData shootData, AbstractProjectileData projectileData)
         {
-            AbstractProjectile projectile = projectilePool.GetProjectile(projectileData);
+            AbstractProjectile projectile = projectilePool.Get(projectileData);
 
             if (projectile == false)
             {
@@ -58,7 +58,7 @@ namespace ModuleBallistics
             GameObject dynamic = FindOrInstantiate(DYNAMIC_NAME, DYNAMIC_PATH, environment.transform);
 
             projectilePool = FindOrInstantiate(PROJECTILE_POOL_NAME, PROJECTILE_POOL_PATH, dynamic.transform)
-                .AddComponent<ProjectilePool>();
+                .AddComponent<ProjectilesPool>();
 
             return false;
         }

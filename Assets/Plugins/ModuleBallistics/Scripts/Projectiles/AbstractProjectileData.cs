@@ -23,12 +23,20 @@ namespace ModuleBallistics
         /// </summary>
         public GameObject Prefab => prefab;
 
-        [Tooltip("Prefered projectile pool size")]
-        [SerializeField] private uint preferedPoolSize = 10;
+        [Tooltip("Minimal pool size")]
+        [SerializeField] private int minPoolSize = 10;
 
         /// <summary>
-        /// Prefered projectile pool size
+        /// Minimal pool size
         /// </summary>
-        public uint PreferedPoolSize => preferedPoolSize;
+        public int MinPoolSize => minPoolSize;
+
+        [Tooltip("Maximal pool size")]
+        [SerializeField] private int maxPoolSize = 10;
+
+        /// <summary>
+        /// Maximal pool size
+        /// </summary>
+        public int MaxPoolSize => maxPoolSize;
     }
 }

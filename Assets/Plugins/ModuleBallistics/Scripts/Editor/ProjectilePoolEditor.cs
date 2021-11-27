@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace ModuleBallistics
 {
-    [CustomEditor(typeof(ProjectilePool))]
+    [CustomEditor(typeof(ProjectilesPool))]
     public class ProjectilePoolEditor : Editor
     {
-        private ProjectilePool projectilePool;
+        private ProjectilesPool projectilePool;
 
         private void OnEnable()
         {
-            projectilePool = target as ProjectilePool;
+            projectilePool = target as ProjectilesPool;
         }
 
         public override void OnInspectorGUI()

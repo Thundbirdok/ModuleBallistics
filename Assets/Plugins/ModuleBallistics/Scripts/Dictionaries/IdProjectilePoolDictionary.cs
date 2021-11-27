@@ -1,37 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace ModuleBallistics
 {
     [Serializable]
-    public class IdProjectilePoolDictionary : UnitySerializedDictionary<string, SpecificProjectilePool>
+    public class IdProjectilePoolDictionary : UnitySerializedDictionary<string, ProjectilePool>
     {
+        /// <summary>
+        /// Check if no missings
+        /// If found - Clear all
+        /// </summary>
         public void CheckDictionary()
         {
-            foreach (KeyValuePair<string, SpecificProjectilePool> pool in this)
-            {
-                if (pool.Value.Pool == false)
-                {
-                    ClearDictionary("Projectile pool dictionary has missing object");
+            foreach (KeyValuePair<string, ProjectilePool> pool in this)
+			{
+				if (pool.Value.ProjectilesParent != false)
+				{                    
+                    continue;
+				}
 
-                    return;
-                }
+				ClearDictionary("Projectile pool dictionary has missing object");
 
-                foreach (AbstractProjectile projectile in pool.Value.List)
-                {
-                    if (projectile == false)
-                    {
-                        ClearDictionary("Projectile pool has missing object");
+                break;
+			}
+		}
 
-                        return;
-                    }
-                }
-            }
-        }
-
-        private void ClearDictionary(string message = null)
+        /// <summary>
+        /// Clear dictionary
+        /// </summary>
+        /// <param name="message"></param>
+        public void ClearDictionary(string message = null)
         {
+            foreach (ProjectilePool pool in Values)
+			{
+                if (pool.Pool != null)
+				{
+                    pool.Pool.Dispose();
+                }                
+			}
+
             Clear();
 
 #if UNITY_EDITOR
@@ -43,17 +52,22 @@ namespace ModuleBallistics
     }
 
     [Serializable]
-    public class SpecificProjectilePool
+    public class ProjectilePool
     {
-        public Transform Pool = default;
-        public List<AbstractProjectile> List = default;
+        [SerializeField]
+		private Transform projectilesParent = default;
+        public Transform ProjectilesParent => projectilesParent;
 
-        public SpecificProjectilePool(
-            Transform pool,
-            List<AbstractProjectile> list)
+        [SerializeField]
+        private ObjectPool<AbstractProjectile> pool = default;
+        public ObjectPool<AbstractProjectile> Pool => pool;
+
+        public ProjectilePool(
+            Transform projectilesParent,
+            ObjectPool<AbstractProjectile> pool)
         {
-            Pool = pool;
-            List = list;
+            this.projectilesParent = projectilesParent;
+            this.pool = pool;            
         }
     }
 }
