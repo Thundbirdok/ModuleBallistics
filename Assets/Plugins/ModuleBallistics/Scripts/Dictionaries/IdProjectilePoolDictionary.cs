@@ -5,69 +5,69 @@ using UnityEngine.Pool;
 
 namespace ModuleBallistics
 {
-    [Serializable]
-    public class IdProjectilePoolDictionary : UnitySerializedDictionary<string, ProjectilePool>
-    {
-        /// <summary>
-        /// Check if no missings
-        /// If found - Clear all
-        /// </summary>
-        public void CheckDictionary()
-        {
-            foreach (KeyValuePair<string, ProjectilePool> pool in this)
+	[Serializable]
+	public class IdProjectilePoolDictionary : UnitySerializedDictionary<string, ProjectilePool>
+	{
+		/// <summary>
+		/// Check if no missings
+		/// If found - Clear all
+		/// </summary>
+		public void CheckDictionary()
+		{
+			foreach (KeyValuePair<string, ProjectilePool> pool in this)
 			{
 				if (pool.Value.ProjectilesParent != false)
-				{                    
-                    continue;
+				{
+					continue;
 				}
 
 				ClearDictionary("Projectile pool dictionary has missing object");
 
-                break;
+				break;
 			}
 		}
 
-        /// <summary>
-        /// Clear dictionary
-        /// </summary>
-        /// <param name="message"></param>
-        public void ClearDictionary(string message = null)
-        {
-            foreach (ProjectilePool pool in Values)
+		/// <summary>
+		/// Clear dictionary
+		/// </summary>
+		/// <param name="message"></param>
+		public void ClearDictionary(string message = null)
+		{
+			foreach (ProjectilePool pool in Values)
 			{
-                if (pool.Pool != null)
+				if (pool.Pool != null)
 				{
-                    pool.Pool.Dispose();
-                }                
+					pool.Pool.Dispose();
+				}
 			}
 
-            Clear();
+			Clear();
 
 #if UNITY_EDITOR
 
-            Debug.Log(message ?? "Dictionary of pools cleared");
+			Debug.Log(message ?? "Dictionary of pools cleared");
 
 #endif
-        }
-    }
+		}
+	}
 
-    [Serializable]
-    public class ProjectilePool
-    {
-        [SerializeField]
+	[Serializable]
+	public class ProjectilePool
+	{
+		[SerializeField]
 		private Transform projectilesParent = default;
-        public Transform ProjectilesParent => projectilesParent;
+		public Transform ProjectilesParent => projectilesParent;
 
-        [SerializeField]
-        private ObjectPool<AbstractProjectile> pool = default;
-        public ObjectPool<AbstractProjectile> Pool => pool;
+		[SerializeField]
+		private ObjectPool<AbstractProjectile> pool = default;
+		public ObjectPool<AbstractProjectile> Pool => pool;
 
-        public ProjectilePool(
-            Transform projectilesParent,
-            ObjectPool<AbstractProjectile> pool)
-        {
-            this.projectilesParent = projectilesParent;
-            this.pool = pool;            
-        }
-    }
+		public ProjectilePool(
+			Transform projectilesParent,
+			ObjectPool<AbstractProjectile> pool)
+		{
+			this.projectilesParent = projectilesParent;
+			this.pool = pool;
+		}
+	}
 }

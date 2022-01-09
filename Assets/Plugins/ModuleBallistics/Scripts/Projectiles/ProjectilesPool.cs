@@ -78,8 +78,8 @@ namespace ModuleBallistics
 
 		private ObjectPool<AbstractProjectile> CreatePool(AbstractProjectileData data, int customMinSize = 0, int customMaxSize = 0)
 		{
-			int minSize = customMinSize == 0 ? data.MinPoolSize : customMinSize;
-			int maxSize = customMaxSize == 0 ? data.MaxPoolSize : customMaxSize;
+			int minSize = customMinSize <= 0 ? data.MinPoolSize : customMinSize;
+			int maxSize = customMaxSize <= 0 ? data.MaxPoolSize : customMaxSize;
 
 			Transform projectilesParent = new GameObject(data.Id + " Pool").transform;
 			projectilesParent.transform.parent = transform;
