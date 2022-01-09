@@ -1,59 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 namespace ModuleBallistics
 {
-    [Serializable]
-    public class IdProjectilePoolDictionary : UnitySerializedDictionary<string, SpecificProjectilePool>
-    {
-        public void CheckDictionary()
-        {
-            foreach (KeyValuePair<string, SpecificProjectilePool> pool in this)
-            {
-                if (pool.Value.Pool == false)
-                {
-                    ClearDictionary("Projectile pool dictionary has missing object");
+	[Serializable]
+	public class IdProjectilePoolDictionary : UnitySerializedDictionary<string, ProjectilePool>
+	{
+		/// <summary>
+		/// Check if no missings
+		/// If found - Clear all
+		/// </summary>
+		public void CheckDictionary()
+		{
+			foreach (KeyValuePair<string, ProjectilePool> pool in this)
+			{
+				if (pool.Value.ProjectilesParent != false)
+				{
+					continue;
+				}
 
-                    return;
-                }
+				ClearDictionary("Projectile pool dictionary has missing object");
 
-                foreach (AbstractProjectile projectile in pool.Value.List)
-                {
-                    if (projectile == false)
-                    {
-                        ClearDictionary("Projectile pool has missing object");
+				break;
+			}
+		}
 
-                        return;
-                    }
-                }
-            }
-        }
+		/// <summary>
+		/// Clear dictionary
+		/// </summary>
+		/// <param name="message"></param>
+		public void ClearDictionary(string message = null)
+		{
+			foreach (ProjectilePool pool in Values)
+			{
+				if (pool.Pool != null)
+				{
+					pool.Pool.Dispose();
+				}
+			}
 
-        private void ClearDictionary(string message = null)
-        {
-            Clear();
+			Clear();
 
 #if UNITY_EDITOR
 
-            Debug.Log(message ?? "Dictionary of pools cleared");
+			Debug.Log(message ?? "Dictionary of pools cleared");
 
 #endif
-        }
-    }
+		}
+	}
 
-    [Serializable]
-    public class SpecificProjectilePool
-    {
-        public Transform Pool = default;
-        public List<AbstractProjectile> List = default;
+	[Serializable]
+	public class ProjectilePool
+	{
+		[SerializeField]
+		private Transform projectilesParent = default;
+		public Transform ProjectilesParent => projectilesParent;
 
-        public SpecificProjectilePool(
-            Transform pool,
-            List<AbstractProjectile> list)
-        {
-            Pool = pool;
-            List = list;
-        }
-    }
+		[SerializeField]
+		private ObjectPool<AbstractProjectile> pool = default;
+		public ObjectPool<AbstractProjectile> Pool => pool;
+
+		public ProjectilePool(
+			Transform projectilesParent,
+			ObjectPool<AbstractProjectile> pool)
+		{
+			this.projectilesParent = projectilesParent;
+			this.pool = pool;
+		}
+	}
 }

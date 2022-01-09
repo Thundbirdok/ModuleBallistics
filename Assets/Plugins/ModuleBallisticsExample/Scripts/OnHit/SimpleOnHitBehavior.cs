@@ -5,14 +5,13 @@ namespace ModuleBallistics
     /// <summary>
     /// Write log in console and deactivate object
     /// </summary>
-    public class SimpleOnHitBehavior : MonoBehaviour
+    public class SimpleOnHitBehavior : AbstractOnHitBehaviour
     {
-        [SerializeField]
-        private AbstractProjectile projectile = default;
-
-        private void OnTriggerEnter(Collider collider)
+        protected override void OnTriggerEnter(Collider collider)
         {
             OnEnvironmentHit(collider);
+
+            base.OnTriggerEnter(collider);
         }
 
         /// <summary>
@@ -21,6 +20,8 @@ namespace ModuleBallistics
         public void OnHit(Collider collider)
         {
             OnEnvironmentHit(collider);
+
+            OnHit();
         }
 
         /// <summary>
@@ -29,8 +30,6 @@ namespace ModuleBallistics
         private void OnEnvironmentHit(Collider collider)
         {
             Debug.Log(gameObject.name + " hit environment " + collider.gameObject.name + " and been destroyed");
-
-            projectile.IsActive = false;
         }
     }
 }
